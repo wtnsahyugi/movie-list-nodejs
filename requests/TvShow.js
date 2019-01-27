@@ -1,4 +1,12 @@
 const redis = require('redis');
+
+if (process.env.REDISTOGOURL) {
+    var rtg = require('url').parse(process.env.REDISTOGOURL);
+    config.redis.port = rtg.port;
+    config.redis.host = rtg.hostname;
+    config.redis.password = rtg.auth.split(':')[1];
+}
+
 const client = redis.createClient();
 const baseUrl = process.env.URL_API;
 const api_key = process.env.API_KEY;
